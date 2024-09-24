@@ -28,10 +28,6 @@
             <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="inverse,success,warning,error"/>
             <property name="iconAlternativeText" label="Icon Alternative Text" description="Please supply alternative text for the icon" type="String"/>
             <property name="buttonLabel" label="Button Label" description="Please supply a button label if using a prompt" type="String"/>
-            <supportedFormFactors>
-                <supportedFormFactor type="Large"/>
-                <supportedFormFactor type="Small"/>
-            </supportedFormFactors>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
