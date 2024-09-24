@@ -1,4 +1,5 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc'; // Make sure to import @wire from 'lwc'
+import { getRecord } from 'lightning/uiRecordApi';
 
 export default class MessagingUtilityComponent extends LightningElement {
     @api showMessage;
@@ -14,6 +15,14 @@ export default class MessagingUtilityComponent extends LightningElement {
     @api iconAlternativeText;
     @api allowClose;
     @api buttonLabel = 'Okay';
+    @api recordId; // Record ID of the current record being viewed
+
+    // Initialize an empty array for fields to track dynamically fetched fields.
+    fields = [];
+
+    // Dynamically get record fields from Salesforce
+    @wire(getRecord, { recordId: '$recordId', fields: '$fields' })
+    record;
 
     closeMessage() {
         this.showMessage = false;
@@ -39,13 +48,38 @@ export default class MessagingUtilityComponent extends LightningElement {
         }
     }
 
-    // Getters to handle default values
+    // Getters to handle default values and dynamic field replacement
     get computedMessageBody() {
-        return this.messageBody || 'Message body not set';
+        return this.replacePlaceholders(this.messageBody || 'Message body not set');
     }
 
     get computedMessageTitle() {
-        return this.messageTitle || 'No Title';
+        return this.replacePlaceholders(this.messageTitle || 'No Title');
+    }
+
+    // Replace {$Record.FieldName} placeholders with actual field values
+    replacePlaceholders(text) {
+        if (!text || !this.record?.data) {
+            return text;
+        }
+        return text.replace(/\{\$Record\.(\w+)\}/g, (match, fieldName) => {
+            const fieldValue = this.record.data.fields[fieldName]?.value;
+            return fieldValue !== undefined ? fieldValue : match;
+        });
+    }
+
+    // Extract fields dynamically based on placeholders in the messageTitle and messageBody
+    connectedCallback() {
+        this.fields = [
+            ...this.extractFieldsFromTemplate(this.messageTitle),
+            ...this.extractFieldsFromTemplate(this.messageBody)
+        ].map(fieldName => `Account.${fieldName}`);
+    }
+
+    // Extract fields (e.g., Name, Industry) from template strings like {$Record.Name}
+    extractFieldsFromTemplate(template) {
+        const fieldMatches = template ? template.match(/\{\$Record\.(\w+)\}/g) : [];
+        return fieldMatches ? fieldMatches.map(match => match.slice(9, -1)) : [];
     }
 
     get computedButtonLabel() {
