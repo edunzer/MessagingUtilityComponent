@@ -12,7 +12,7 @@
                                                     variant={iconVariant} size={iconSize}
                                                     alternative-text={iconAlternativeText}></lightning-icon>
                                 </template>
-                                <h2>{computedMessageTitle}</h2>
+                                <h2 class={titleTextSizeClass}>{computedMessageTitle}</h2>
                                 <template if:true={allowClose}>
                                     <div class="slds-notify__close slds-p-left--small">
                                         <button class="slds-button slds-button_icon slds-button_icon-inverse"
@@ -45,16 +45,14 @@
                                                                     alternative-text={iconAlternativeText}></lightning-icon>
                                                 </div>
                                                 <div class="slds-size--9-of-12 slds-small-size--9-of-12 slds-medium-size--10-of-12 slds-size--11-of-12 slds-align-middle">
-                                                    <p class="slds-wrap" style="font-size:.9rem;font-weight:bold">
-                                                        {computedMessageTitle}</p>
-                                                    <p class="slds-wrap" style="font-size:.9rem;">{computedMessageBody}</p>
+                                                    <p class={titleTextSizeClass}>{computedMessageTitle}</p>
+                                                    <p class={bodyTextSizeClass}>{computedMessageBody}</p>
                                                 </div>
                                             </template>
                                             <template if:false={showIcon}>
                                                 <div class="slds-size--1-of-1 slds-align-middle">
-                                                    <p class="slds-wrap" style="font-size:.9rem;font-weight:bold">
-                                                        {computedMessageTitle}</p>
-                                                    <p class="slds-wrap" style="font-size:.9rem;">{computedMessageBody}</p>
+                                                    <p class={titleTextSizeClass}>{computedMessageTitle}</p>
+                                                    <p class={bodyTextSizeClass}>{computedMessageBody}</p>
                                                 </div>
                                             </template>
                                         </div>
@@ -83,11 +81,10 @@
                                 <span class="slds-assistive-text">Close</span>
                             </button>
                         </template>
-                        <h2 class="slds-text-heading_medium slds-text-align--center" id="prompt-heading-id">
-                            {computedMessageTitle}</h2>
+                        <h2 class={titleTextSizeClass}>{computedMessageTitle}</h2>
                     </header>
                     <div class="slds-modal__content slds-p-around_medium" id="prompt-message-wrapper">
-                        <p>{computedMessageBody}</p>
+                        <p class={bodyTextSizeClass}>{computedMessageBody}</p>
                     </div>
                     <footer class="slds-modal__footer slds-theme_default">
                         <template if:true={allowClose}>

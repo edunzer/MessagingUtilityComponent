@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc'; // Make sure to import @wire from 'lwc'
+import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 
 export default class MessagingUtilityComponent extends LightningElement {
@@ -16,11 +16,11 @@ export default class MessagingUtilityComponent extends LightningElement {
     @api allowClose;
     @api buttonLabel = 'Okay';
     @api recordId; // Record ID of the current record being viewed
+    @api titleTextSize = 'medium'; // Default to medium size
+    @api bodyTextSize = 'medium'; // Default to medium size
 
-    // Initialize an empty array for fields to track dynamically fetched fields.
     fields = [];
 
-    // Dynamically get record fields from Salesforce
     @wire(getRecord, { recordId: '$recordId', fields: '$fields' })
     record;
 
@@ -30,7 +30,6 @@ export default class MessagingUtilityComponent extends LightningElement {
         this.dispatchEvent(closeEvent);
     }
 
-    // Helper function to determine theme class
     getThemeClass() {
         switch (this.messageVariant) {
             case 'info':
@@ -48,7 +47,6 @@ export default class MessagingUtilityComponent extends LightningElement {
         }
     }
 
-    // Getters to handle default values and dynamic field replacement
     get computedMessageBody() {
         return this.replacePlaceholders(this.messageBody || 'Message body not set');
     }
@@ -57,7 +55,6 @@ export default class MessagingUtilityComponent extends LightningElement {
         return this.replacePlaceholders(this.messageTitle || 'No Title');
     }
 
-    // Replace {$Record.FieldName} placeholders with actual field values
     replacePlaceholders(text) {
         if (!text || !this.record?.data) {
             return text;
@@ -68,7 +65,6 @@ export default class MessagingUtilityComponent extends LightningElement {
         });
     }
 
-    // Extract fields dynamically based on placeholders in the messageTitle and messageBody
     connectedCallback() {
         this.fields = [
             ...this.extractFieldsFromTemplate(this.messageTitle),
@@ -76,7 +72,6 @@ export default class MessagingUtilityComponent extends LightningElement {
         ].map(fieldName => `Account.${fieldName}`);
     }
 
-    // Extract fields (e.g., Name, Industry) from template strings like {$Record.Name}
     extractFieldsFromTemplate(template) {
         const fieldMatches = template ? template.match(/\{\$Record\.(\w+)\}/g) : [];
         return fieldMatches ? fieldMatches.map(match => match.slice(9, -1)) : [];
@@ -86,19 +81,39 @@ export default class MessagingUtilityComponent extends LightningElement {
         return this.buttonLabel || 'Okay';
     }
 
-    // Alert message class
     get alertMessageClass() {
         return `slds-notify slds-notify_alert slds-theme_alert-texture ${this.getThemeClass()}`;
     }
 
-    // Inline message class
     get inlineMessageClass() {
         return `slds-box slds-m-bottom--medium slds-theme_alert-texture ${this.getThemeClass()}`;
     }
 
-    // Prompt message class
     get promptMessageClass() {
         return `slds-modal__header slds-theme_alert-texture ${this.getThemeClass()}`;
+    }
+
+    // CSS classes to control text size for title and body
+    get titleTextSizeClass() {
+        switch (this.titleTextSize) {
+            case 'small':
+                return 'slds-text-heading_small';
+            case 'large':
+                return 'slds-text-heading_large';
+            default:
+                return 'slds-text-heading_medium';
+        }
+    }
+
+    get bodyTextSizeClass() {
+        switch (this.bodyTextSize) {
+            case 'small':
+                return 'slds-text-body_small';
+            case 'large':
+                return 'slds-text-body_large';
+            default:
+                return 'slds-text-body_medium';
+        }
     }
 
     get isAlert() {

@@ -20,7 +20,9 @@
             <property name="allowClose" label="Allow Close" description="Allow the user to close the message, this does not apply to prompts" type="Boolean"/>
             <property name="maxWidth" label="Max width (%)" description="This will set the max width of the alert or inline component. Please supply a number" type="Integer"/>
             <property name="messageTitle" label="Message Title" description="The title of the message being displayed" type="String"/>
+            <property name="titleTextSize" label="Title Text Size" description="Size of the message title text" type="String" datasource="small,medium,large"/>
             <property name="messageBody" label="Message Body" description="The details of the message being displayed" type="String"/>
+            <property name="bodyTextSize" label="Body Text Size" description="Size of the message body text" type="String" datasource="small,medium,large"/>
             <property name="showIcon" label="Show Icon" description="This determines if the icon is shown to the user" type="Boolean"/>
             <property name="iconName" label="Icon Name" description="Icon names can be found in the Lightning design system, prefix with the category ie. utility:open" type="String"/>
             <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="inverse,success,warning,error"/>
