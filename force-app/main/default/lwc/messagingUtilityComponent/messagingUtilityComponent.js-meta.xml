@@ -23,7 +23,7 @@
             <property name="messageBody" label="Message Body" description="The details of the message being displayed" type="String"/>
             <property name="showIcon" label="Show Icon" description="This determines if the icon is shown to the user" type="Boolean"/>
             <property name="iconName" label="Icon Name" description="Icon names can be found in the Lightning design system, prefix with the category ie. utility:open" type="String"/>
-            <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="error,info,offline,success,warning"/>
+            <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="inverse,success,warning,error"/>
             <property name="iconAlternativeText" label="Icon Alternative Text" description="Please supply alternative text for the icon" type="String"/>
             <property name="buttonLabel" label="Button Label" description="Please supply a button label if using a prompt" type="String"/>
             <supportedFormFactors>
@@ -42,7 +42,7 @@
             <property name="messageBody" label="Message Body" description="The details of the message being displayed" type="String"/>
             <property name="showIcon" label="Show Icon" description="This determines if the icon is shown to the user" type="Boolean"/>
             <property name="iconName" label="Icon Name" description="Icon names can be found in the Lightning design system, prefix with the category ie. utility:open" type="String"/>
-            <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="error,info,offline,success,warning"/>
+            <property name="iconVariant" label="Icon Variant" description="Please see the user guide for the designated variants" type="String" datasource="inverse,success,warning,error"/>
             <property name="iconAlternativeText" label="Icon Alternative Text" description="Please supply alternative text for the icon" type="String"/>
             <property name="buttonLabel" label="Button Label" description="Please supply a button label if using a prompt" type="String"/>
         </targetConfig>
